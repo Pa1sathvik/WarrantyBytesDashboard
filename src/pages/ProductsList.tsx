@@ -96,7 +96,7 @@ function ProductsList() {
                                     Warranty Status
                                 </th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">
-                                   Product Carbon Footprint
+                                   Appx Product Carbon Footprint(PCF)
                                 </th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">
                                     Actions
@@ -136,7 +136,7 @@ function ProductsList() {
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        3.3 kg of CO2
+                                        3.3 kg of CO2 per day
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -241,7 +241,7 @@ function ProductsList() {
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        1.3 kg of CO2
+                                        1.3 kg of CO2 per hour
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -346,7 +346,7 @@ function ProductsList() {
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        2.3 kg of CO2
+                                        2.3 kg of CO2 per hour
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
@@ -451,7 +451,7 @@ function ProductsList() {
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                     <p className="text-black dark:text-white">
-                                        12.3 kg of CO2
+                                        12.3 kg of CO2 per hour
                                     </p>
                                 </td>
                                 <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
