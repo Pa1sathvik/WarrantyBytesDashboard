@@ -20,7 +20,7 @@ function ProductsList() {
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
-      trigger={<Button>Show Modal</Button>}
+      trigger={<Button>Add your product</Button>}
     >
       <ModalHeader>Enter Your product details</ModalHeader>
       <ModalContent image>
@@ -44,6 +44,10 @@ function ProductsList() {
     <FormField>
     <label>Product files</label>
     <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+    </FormField>
+    <FormField>
+    <label>Location</label>
+    <input placeholder='Enter your location' />
     </FormField>
     <FormField>
       <Checkbox label='I agree to the Terms and Conditions' />
