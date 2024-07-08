@@ -48,7 +48,7 @@ function ProductsList() {
     <FormField>
       <Checkbox label='I agree to the Terms and Conditions' />
     </FormField>
-    <Button type='submit'>Submit</Button>
+   
   </Form>
       </ModalContent>
       <ModalActions>
