@@ -1,5 +1,5 @@
 {
-  "homepage":"https://github.com/Pa1sathvik/WarrantyBytesDashboard",
+  "homepage":"https://pa1sathvik.github.io/WarrantyBytesDashboard/",
   "name": "warrantybytes-dashboard",
   "private": true,
   "version": "1.0.0",
@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "predeploy":"npm run build",
-    "deploy":"gh-pages -d build",
+    "deploy":"gh-pages -d dist",
     "preview": "vite preview"
   },
   "author": {
