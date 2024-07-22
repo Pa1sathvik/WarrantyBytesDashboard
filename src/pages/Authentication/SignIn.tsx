@@ -1,10 +1,41 @@
-import { Link } from 'react-router-dom';
+import { Link ,Navigate} from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import { doSignInWithEmailAndPassword,doSignInWithGoogle } from '../auth/auth';
+import { useAuth } from '../../contexts/authContext/AuthContextDetails';
+import { useState } from 'react';
+
 
 const SignIn = () => {
+
+  const { userLoggedIn } = useAuth()
+  const [email , setEmail] = useState('');
+  const [password , setPassword] = useState('');
+  const [isSigningIn, setIsSigningIn] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+  const onSubmit = async (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    if(!isSigningIn) {
+        setIsSigningIn(true)
+        await doSignInWithEmailAndPassword(email, password)
+        // doSendEmailVerification()
+    }
+}
+
+const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+   
+    if (!isSigningIn) {
+        setIsSigningIn(true)
+        doSignInWithGoogle().catch(err => {
+          console.error(err)
+            setIsSigningIn(false)
+        })
+    }
+}
   return (
     <>
+    {userLoggedIn && <Navigate to={'/home'} replace={true}></Navigate> }
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -15,8 +46,7 @@ const SignIn = () => {
               </Link>
 
               <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                Secure place to store all your products warranty details for tracking and suggestions.
               </p>
 
               <span className="mt-15 inline-block">
@@ -148,7 +178,7 @@ const SignIn = () => {
             <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
               <span className="mb-1.5 block font-medium">Start for free</span>
               <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-                Sign In to TailAdmin
+                Sign In to WarrantyBytes
               </h2>
 
               <form>
@@ -226,7 +256,13 @@ const SignIn = () => {
                   />
                 </div>
 
-                <button className="flex w-full items-center justify-center gap-3.5 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50">
+                <button 
+                className="flex w-full items-center justify-center gap-3.5 
+                rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 
+                dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50
+                ${isSigningIn ? 'cursor-not-allowed' : 'hover:bg-gray-100 transition duration-300 active:bg-gray-100'}`}"
+                onClick={(e) => { onGoogleSignIn(e) }}
+                disabled={isSigningIn}>
                   <span>
                     <svg
                       width="20"
@@ -260,13 +296,13 @@ const SignIn = () => {
                       </defs>
                     </svg>
                   </span>
-                  Sign in with Google
+                  {isSigningIn ? 'Signing In...' : 'Sign in with Google'}
                 </button>
 
                 <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{' '}
-                    <Link to="/auth/signup" className="text-primary">
+                    <Link to="/signup" className="text-primary">
                       Sign Up
                     </Link>
                   </p>

@@ -1,5 +1,5 @@
 {
-  "homepage":"https://pa1sathvik.github.io/WarrantyBytesDashboard/",
+  "homepage": "https://pa1sathvik.github.io/WarrantyBytesDashboard/",
   "name": "warrantybytes-dashboard",
   "private": true,
   "version": "1.0.0",
@@ -7,17 +7,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "predeploy":"npm run build",
-    "deploy":"gh-pages -d dist",
+    "predeploy": "npm run build",
     "preview": "vite preview"
   },
   "author": {
     "name": "WarrantyBytes",
-    "email": "hello@tailadmin.com",
-    "url": "https://tailadmin.com"
+    "email": "vsathvik@warrantybytes.com",
+    "url": "https://warrantybytes.com"
   },
   "dependencies": {
     "apexcharts": "^3.41.0",
+    "firebase": "^10.12.4",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
@@ -38,10 +38,10 @@
     "@vitejs/plugin-react": "^4.0.3",
     "autoprefixer": "^10.4.14",
     "file-loader": "^6.2.0",
-    "gh-pages": "^6.1.1",
     "postcss": "^8.4.27",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
+    "sass": "^1.77.8",
     "tailwindcss": "^3.3.3",
     "vite": "^4.4.7",
     "webpack": "^5.88.2"

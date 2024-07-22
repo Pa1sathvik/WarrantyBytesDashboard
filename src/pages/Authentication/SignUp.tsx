@@ -1,10 +1,31 @@
-import { Link } from 'react-router-dom';
+import { Link,Navigate } from 'react-router-dom';
 import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
+import { useState } from 'react';
+import { useAuth } from '../../contexts/authContext/AuthContextDetails';
+import { doCreateUserWithEmailAndPassword } from '../auth/auth';
 
 const SignUp = () => {
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setconfirmPassword] = useState('')
+  const [isRegistering, setIsRegistering] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const { userLoggedIn } = useAuth()
+
+  const onSubmit = async (e: { preventDefault: () => void; }) => {
+      e.preventDefault()
+      if(!isRegistering) {
+          setIsRegistering(true)
+          await doCreateUserWithEmailAndPassword(email, password)
+      }
+  }
+
   return (
     <>
+     {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
       <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
@@ -291,8 +312,8 @@ const SignUp = () => {
                   </label>
                   <div className="relative">
                     <input
-                      type="password"
-                      placeholder="Re-enter your password"
+                      type="text"
+                      placeholder="Enter your mobile number"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -368,7 +389,7 @@ const SignUp = () => {
                 <div className="mt-6 text-center">
                   <p>
                     Already have an account?{' '}
-                    <Link to="/auth/signin" className="text-primary">
+                    <Link to="/signin" className="text-primary">
                       Sign in
                     </Link>
                   </p>

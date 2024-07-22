@@ -12,13 +12,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-
+    "esModuleInterop": true,
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "src/lib.d.ts"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "src/lib.d.ts","src/**/*"],
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "exclude": [
+    "node_modules"
+  ]
 }

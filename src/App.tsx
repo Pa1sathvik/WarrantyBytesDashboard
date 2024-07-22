@@ -6,6 +6,7 @@ import ECommerce from './pages/Dashboard/ECommerce';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
+import Login from './pages/Login';
 import routes from './routes';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
@@ -27,8 +28,8 @@ function App() {
         containerClassName="overflow-auto"
       />
       <Routes>
-        <Route path="/auth/signin" element={<SignIn />} />
-        <Route path="/auth/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route element={<DefaultLayout />}>
           <Route index element={<ECommerce />} />
           {routes.map((routes, index) => {
