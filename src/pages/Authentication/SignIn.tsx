@@ -11,13 +11,19 @@ const SignIn = () => {
   const { userLoggedIn } = useAuth()
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
+  const [isGoogleSigningIn, setIsGoogleSigningIn] = useState(false)
   const [isSigningIn, setIsSigningIn] = useState(false)
+ 
   const [errorMessage, setErrorMessage] = useState('')
   const onSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault()
     if(!isSigningIn) {
         setIsSigningIn(true)
-        await doSignInWithEmailAndPassword(email, password)
+        await doSignInWithEmailAndPassword(email, password).catch(err=>{
+          console.error(err)
+          setErrorMessage(err)
+            setIsSigningIn(false)
+        })
         // doSendEmailVerification()
     }
 }
@@ -26,17 +32,18 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
     e.preventDefault()
    
     if (!isSigningIn) {
-        setIsSigningIn(true)
+      setIsGoogleSigningIn(true)
         doSignInWithGoogle().catch(err => {
           console.error(err)
-            setIsSigningIn(false)
+          setErrorMessage(err)
+          setIsGoogleSigningIn(false)
         })
     }
 }
   return (
     <>
-    {userLoggedIn && <Navigate to={'/home'} replace={true}></Navigate> }
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+    {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+    <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex flex-wrap items-center">
           <div className="hidden w-full xl:block xl:w-1/2">
             <div className="py-17.5 px-26 text-center">
@@ -183,7 +190,7 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
 
               <form>
                 <div className="mb-4">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label className="mb-2.5 block font-bold text-black dark:text-white">
                     Email
                   </label>
                   <div className="relative">
@@ -214,13 +221,13 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
                 </div>
 
                 <div className="mb-6">
-                  <label className="mb-2.5 block font-medium text-black dark:text-white">
+                  <label className="mb-2.5 block font-bold text-black dark:text-white">
                     Re-type Password
                   </label>
                   <div className="relative">
                     <input
                       type="password"
-                      placeholder="6+ Characters, 1 Capital letter"
+                      placeholder="8+ Characters, 1 Capital letter"
                       className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary"
                     />
 
@@ -249,15 +256,17 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
                 </div>
 
                 <div className="mb-5">
-                  <input
+                  <button
                     type="submit"
-                    value="Sign In"
-                    className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
-                  />
+                    disabled={isSigningIn}
+                    onClick={(e) => { onSubmit(e) }}
+                    className="w-full cursor-pointer rounded-lg font-bold border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                  >{isSigningIn ? 'Signing In...' : 'Sign In'}</button>
+
                 </div>
 
                 <button 
-                className="flex w-full items-center justify-center gap-3.5 
+                className="flex font-bold w-full items-center justify-center gap-3.5 
                 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 
                 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50
                 ${isSigningIn ? 'cursor-not-allowed' : 'hover:bg-gray-100 transition duration-300 active:bg-gray-100'}`}"
@@ -296,13 +305,13 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
                       </defs>
                     </svg>
                   </span>
-                  {isSigningIn ? 'Signing In...' : 'Sign in with Google'}
+                  {isGoogleSigningIn ? 'Signing In...' : 'Sign in with Google'}
                 </button>
 
                 <div className="mt-6 text-center">
                   <p>
                     Don’t have any account?{' '}
-                    <Link to="/signup" className="text-primary">
+                    <Link to="/signup" className="text-primary font-bold">
                       Sign Up
                     </Link>
                   </p>

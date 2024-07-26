@@ -1,9 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/authContext/AuthContextDetails';
 
 import UserOne from '../images/user/user-01.png';
+import { doSignOut } from '../pages/auth/auth';
 
 const DropdownUser = () => {
+  const { setUserLoggedIn,currentUser} = useAuth()
+  const navigate  = useNavigate();
+  
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const trigger = useRef<any>(null);
@@ -45,7 +50,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Vutukuri Sathvik
+            Hello {currentUser?.displayName ? currentUser?.displayName : currentUser?.email}
           </span>
           <span className="block text-xs">Senior Software Engineer</span>
         </span>
@@ -155,7 +160,8 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button onClick={()=>{
+        doSignOut().then(()=>navigate('/login'))}} className="flex items-center gap-3.5 py-4 px-6 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <svg
             className="fill-current"
             width="22"

@@ -10,16 +10,15 @@ export function useAuth() {
 }
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState('');
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [isEmailUser, setIsEmailUser] = useState(false);
   const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("auth",auth)
-     const auth1 = getAuth();
-    const unsubscribe = onAuthStateChanged(auth1, initializeUser);
+   
+    const unsubscribe = onAuthStateChanged(auth, initializeUser);
     return ()=> unsubscribe();
   }, []);
 
