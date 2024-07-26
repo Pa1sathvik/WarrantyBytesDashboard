@@ -16,3 +16,7 @@ export const LOGIN_URL =
 
   export const CREATE_USER_WARRANTIES_URL =
   process.env.REACT_APP_WARRANTY_BYTES_BASE_URL + "/api/v1/warranties";
+
+  export const GET_WARRANTIES_REMINDERS_URL =
+  process.env.REACT_APP_WARRANTY_BYTES_BASE_URL + "/api/v1/warranties_reminders";
+

@@ -10,7 +10,7 @@ const Tables = lazy(() => import('../pages/Tables'));
 const Alerts = lazy(() => import('../pages/UiElements/Alerts'));
 const Buttons = lazy(() => import('../pages/UiElements/Buttons'));
 const ProductsList = lazy(()=>import('../pages/ProductsList'))
-const Home = lazy(()=>import('../pages/Dashboard/ECommerce'))
+const Home = lazy(()=>import('../pages/Dashboard/HomePage'))
 
 const coreRoutes = [
   {

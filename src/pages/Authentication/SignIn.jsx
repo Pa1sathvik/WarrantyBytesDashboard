@@ -3,19 +3,22 @@ import LogoDark from '../../images/logo/logo-dark.svg';
 import Logo from '../../images/logo/logo.svg';
 import { doSignInWithEmailAndPassword,doSignInWithGoogle } from '../auth/auth';
 import { useAuth } from '../../contexts/authContext/AuthContextDetails';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { UserDetailsContext } from '../../contexts/userContext/UserDetailsContext';
+
 
 
 const SignIn = () => {
 
-  const { userLoggedIn } = useAuth()
+  const { currentUser,userLoggedIn } = useAuth()
+  const {setUserDetails} = useContext(UserDetailsContext)
   const [email , setEmail] = useState('');
   const [password , setPassword] = useState('');
   const [isGoogleSigningIn, setIsGoogleSigningIn] = useState(false)
   const [isSigningIn, setIsSigningIn] = useState(false)
  
   const [errorMessage, setErrorMessage] = useState('')
-  const onSubmit = async (e: { preventDefault: () => void; }) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
     if(!isSigningIn) {
         setIsSigningIn(true)
@@ -28,17 +31,66 @@ const SignIn = () => {
     }
 }
 
-const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
+const createUser = async (user) =>{
+
+
+  let req = {
+    username:user?.email,
+    password:'dummy11',
+    uid:user.uid,
+    emailId:user?.email,
+    phoneNumber:Math.floor(1000000000 + Math.random() * 9000000000).toString().padStart(10, '0')
+  }
+
+try{
+
+  const response = await fetch('http://localhost:8080/api/v1/users', {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(req),
+  })
+
+  const json = await response.json();
+  let createdUser = json.data;
+  setUserDetails(createdUser);
+  console.log(createdUser);
+
+}catch(error){
+  console.error(error.message);
+}
+
+}
+
+const onGoogleSignIn = async () => {
+   
    
     if (!isSigningIn) {
       setIsGoogleSigningIn(true)
-        doSignInWithGoogle().catch(err => {
-          console.error(err)
-          setErrorMessage(err)
-          setIsGoogleSigningIn(false)
-        })
+      let user;
+      try{
+         user = await doSignInWithGoogle()
+      }catch(error){
+        console.error(error)
+        setErrorMessage(error.code)
+        setIsGoogleSigningIn(false)
+        return;
+      }
+        
+
+        return user;
+        
     }
+}
+
+const googleSignIn = async (e) =>{
+
+  console.log('gppogle')
+  e.preventDefault();
+  let user = await onGoogleSignIn();
+
+  createUser(user);
 }
   return (
     <>
@@ -188,6 +240,15 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
                 Sign In to WarrantyBytes
               </h2>
 
+              {errorMessage && <div class="flex items-center p-4 mb-4 text-lg text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+  <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+  </svg>
+  <span class="sr-only">Info</span>
+  <div>
+    <span class="font-medium">alert!</span>{errorMessage}
+  </div>
+</div>}
               <form>
                 <div className="mb-4">
                   <label className="mb-2.5 block font-bold text-black dark:text-white">
@@ -265,12 +326,12 @@ const onGoogleSignIn = (e: { preventDefault: () => void; }) => {
 
                 </div>
 
-                <button 
+                <button   
                 className="flex font-bold w-full items-center justify-center gap-3.5 
                 rounded-lg border border-stroke bg-gray p-4 hover:bg-opacity-50 
                 dark:border-strokedark dark:bg-meta-4 dark:hover:bg-opacity-50
                 ${isSigningIn ? 'cursor-not-allowed' : 'hover:bg-gray-100 transition duration-300 active:bg-gray-100'}`}"
-                onClick={(e) => { onGoogleSignIn(e) }}
+                onClick={(e) => { googleSignIn(e) }}
                 disabled={isSigningIn}>
                   <span>
                     <svg
