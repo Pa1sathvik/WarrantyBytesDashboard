@@ -17,7 +17,29 @@ const HomePage = () => {
   const[isEmptyProducts,setIsEmptyProducts] = useState(false)
 
   useEffect(()=>{
+    let userId = userDetails?.userId;
+    if(userId){
     
+    try{
+
+     
+
+      const response = fetch(`http://localhost:8080/api/v1/warranties/${userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+    
+      const json =  response.json();
+      let createdUser = json.data;
+     
+      console.log(createdUser);
+    
+    }catch(error){
+      console.error(error.message);
+    }
+  }
   },[userDetails?.userId])
  
   return (
