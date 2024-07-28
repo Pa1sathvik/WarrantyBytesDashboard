@@ -6,8 +6,9 @@ import ECommerce from './pages/Dashboard/HomePage';
 import SignIn from './pages/Authentication/SignIn';
 import SignUp from './pages/Authentication/SignUp';
 import Loader from './common/Loader';
-import Login from './pages/Login';
 import routes from './routes';
+import NoPageFound from './pages/NoPage/NoPageFound';
+import LandingPage from './pages/LandingPage/LandingPage';
 
 const DefaultLayout = lazy(() => import('./layout/DefaultLayout'));
 
@@ -30,6 +31,7 @@ function App() {
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/" element={<LandingPage />} />
         <Route element={<DefaultLayout />}>
           <Route index element={<ECommerce />} />
           {routes.map((routes, index) => {
@@ -47,6 +49,7 @@ function App() {
             );
           })}
         </Route>
+        <Route path="*" element={<NoPageFound />} />
       </Routes>
     </>
   );

@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
-
+const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -9,10 +9,12 @@ module.exports = {
       satoshi: ['Satoshi', 'sans-serif'],
     },
     colors: {
+      indigo: colors.indigo,
+      blue:colors.blue,
       current: 'currentColor',
       transparent: 'transparent',
-      white: '#FFFFFF',
-      black: '#1C2434',
+      white: colors.white,
+      black: colors.black,
       green:'#00a859',
       'black-2': '#010101',
       body: '#64748B',
@@ -22,7 +24,7 @@ module.exports = {
       primary: '#3C50E0',
       secondary: '#80CAEE',
       stroke: '#E2E8F0',
-      gray: '#EFF4FB',
+      gray: colors.gray,
       graydark: '#333A48',
       'gray-2': '#F7F9FC',
       'gray-3': '#FAFAFA',
@@ -44,7 +46,7 @@ module.exports = {
       'meta-9': '#E5E7EB',
       success: '#219653',
       danger: '#D34053',
-      warning: '#FFA70B',
+      warning: '#FFA70B'
     },
     screens: {
       '2xsm': '375px',

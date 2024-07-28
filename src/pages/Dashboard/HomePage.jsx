@@ -10,6 +10,7 @@ import ChatCard from '../../components/ChatCard.tsx';
 import MapOne from '../../components/MapOne.tsx';
 import TableOne from '../../components/TableOne.tsx';
 import { UserDetailsContext } from '../../contexts/userContext/UserDetailsContext.jsx';
+import { Link ,Navigate} from 'react-router-dom';
 
 const HomePage = () => {
   const {userDetails} = useContext(UserDetailsContext)
@@ -21,8 +22,6 @@ const HomePage = () => {
     if(userId){
     
     try{
-
-     
 
       const response = fetch(`http://localhost:8080/api/v1/warranties/${userId}`, {
         method: "GET",
@@ -45,6 +44,7 @@ const HomePage = () => {
   return (
     <>
 
+{!userDetails && (<Navigate to={'/signin'} replace={true} />)}
 {(warrantyDetails.length === 0 && isEmptyProducts) && <div className="flex items-center justify-center h-screen">
     <div className="relative">
         <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>

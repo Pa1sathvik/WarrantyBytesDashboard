@@ -1,5 +1,4 @@
 {
-  "homepage": "https://pa1sathvik.github.io/WarrantyBytesDashboard/",
   "name": "warrantybytes-dashboard",
   "private": true,
   "version": "1.0.0",
@@ -8,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "predeploy": "npm run build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "type-check": "tsc --noEmit"
   },
   "author": {
     "name": "WarrantyBytes",
