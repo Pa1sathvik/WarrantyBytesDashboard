@@ -14,7 +14,7 @@ import { Link ,Navigate} from 'react-router-dom';
 
 const HomePage = () => {
   const {userDetails} = useContext(UserDetailsContext)
-  const[warrantyDetails,setWarrantyDetails] = useState([]);
+  const[warrantyDetails,setWarrantyDetails] = useState(["ee"]);
   const[isEmptyProducts,setIsEmptyProducts] = useState(false)
   const[isLoading,setIsLoading] = useState(false)
 
