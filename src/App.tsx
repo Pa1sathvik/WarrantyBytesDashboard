@@ -23,11 +23,11 @@ function App() {
     <Loader />
   ) : (
     <>
-      <Toaster
+      {/**<Toaster
         position="top-right"
         reverseOrder={false}
         containerClassName="overflow-auto"
-      />
+      /> */}
       <Routes>
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />

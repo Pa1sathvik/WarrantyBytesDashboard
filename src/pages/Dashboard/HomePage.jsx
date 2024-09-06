@@ -16,44 +16,52 @@ const HomePage = () => {
   const {userDetails} = useContext(UserDetailsContext)
   const[warrantyDetails,setWarrantyDetails] = useState([]);
   const[isEmptyProducts,setIsEmptyProducts] = useState(false)
+  const[isLoading,setIsLoading] = useState(false)
 
   useEffect(()=>{
+  
+    getWarranties();
+  },[userDetails?.userId])
+ 
+  const getWarranties = async () =>{
     let userId = userDetails?.userId;
     if(userId){
-    
+      setIsLoading(true)
     try{
 
-      const response = fetch(`http://localhost:8080/api/v1/warranties/${userId}`, {
+      const response = await fetch(`http://localhost:8080/api/v1/warranties/${userId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         }
       })
     
-      const json =  response.json();
-      let createdUser = json.data;
+      const json =  await response.json();
+      let warranties = json.data;
      
-      console.log(createdUser);
+      console.log(warranties);
+      setIsLoading(false)
     
     }catch(error){
+      setIsLoading(false)
       console.error(error.message);
     }
   }
-  },[userDetails?.userId])
- 
+  }
+
   return (
     <>
 
-{!userDetails && (<Navigate to={'/signin'} replace={true} />)}
-{(warrantyDetails.length === 0 && isEmptyProducts) && <div className="flex items-center justify-center h-screen">
+{!userDetails?.userId && (<Navigate to={'/signin'} replace={true} />)}
+{(warrantyDetails.length === 0 && !isEmptyProducts) && <div className="flex items-center justify-center h-screen">
     <div className="relative">
         <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
-        <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-green-500 animate-spin">
+        <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
         </div>
     </div>
 </div>
 }
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
+   {warrantyDetails.length !==0 && (<><div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-7.5">
         <CardOne />
         <CardTwo />
         <CardThree />
@@ -69,7 +77,7 @@ const HomePage = () => {
           <TableOne />
         </div>
         <ChatCard />
-      </div>
+      </div></>)}
     </>
   );
 };

@@ -17,8 +17,11 @@
     "url": "https://warrantybytes.com"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.7",
     "apexcharts": "^3.41.0",
     "firebase": "^10.12.4",
+    "flowbite": "^2.4.1",
+    "flowbite-react": "^0.10.1",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
